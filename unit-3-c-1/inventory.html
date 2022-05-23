@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #navbar+div{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-template-rows: repeat(4,auto);
+        border: 1px solid red;
+        width: 80%;
+        margin: auto;
+      }
+      #xy{
+        border: 1px solid red;
+        width:300px;
+        height:300px;
+        
+      }
+      
+    </style>
+  </head>
+
+  <style></style>
+
+  <body>
+    <div id="navbar">
+      <button id="add_more_product">Add more Product</button>
+      <!--Create Add More Product button here, give id as "add_more_product". avoid making spelling mistakes in HTML id's-->
+    </div>
+    <div id="all_products">
+      <!--append all products data here in grid format-->
+      <!-- The Remove Product button will have id as "remove_product" -->
+    </div>
+  </body>
+</html>
+
+<script>
+
+var productdetail=JSON.parse(localStorage.getItem("products"));
+
+var all_product=document.querySelector("#all_products")
+productdetail.forEach(function(elem,index){
+    var box=document.createElement("div")
+  var image=document.createElement("img")
+  image.setAttribute("src",elem.image)
+  var price=document.createElement("h3")
+  price.innerText=elem.price
+  var disc=document.createElement("p")
+  disc.innerText=elem.desc
+  
+  box.append(image,price,Disc)
+  console.log(box)
+  all_product.append(box)
+})
+var btn=document.querySelector("#add_more_product");
+btn.addEventListener("click",)
+function gotoadd(){
+  window.location="index.html"
+  console.log("c")
+}
+
+
+
+
+
+</script>
