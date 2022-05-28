@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            margin: auto;;
+            text-align: center;
+            border: red;
+            display: flex;
+            justify-content: space-around;
+          }
+        body{
+           background-color: skyblue; 
+           background-image:
+            linear-gradient(to bottom,rgba(143, 205, 244, 0.5), rgba(143, 205, 244, 0.5)),url("https://hdqwalls.com/download/blue-sky-summer-dv-1920x1080.jpg")
+        
+
+        }
+        #conatiner1{
+            text-decoration: wavy;
+            text-emphasis-color: yellow;
+        }
+        p{
+            color: yellow;
+        }
+        h3{
+            color:red ;
+        }
+        
+    </style>
+</head>
+<body>
+    <input type="text" placeholder="city" id="city">
+    <button onclick="getdata()">Search Weather</button>
+    <button onclick="getLocationWeather()">search Weather for current location</button>
+    <div id="container">
+        <div id="container1"></div>
+        <div class="mapouter">
+            <iframe width="450" 
+            height="400"
+             id="gmap_canvas" 
+             
+              frameborder="0" 
+              scrolling="no"
+               marginheight="0" 
+               marginwidth="0">
+    
+            </iframe>
+             
+        </div>
+    </div>
+   
+
+
+    
+</body>
+</html>
+<script>
+    let count=0;
+    const appi_key="51e36096ca5761c6d7d5ba0502c5a59b";
+    function getdata(lat,lon)
+    {
+        count++;
+        let city=document.querySelector("#city").value;
+
+        //let url= `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appi_key}`
+        
+        let url=  `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appi_key}`
+    
+        console.log(url)
+         async function description()
+         {
+            try{
+            let res = await fetch(url);
+             let users= await res.json()
+             printdata(users)
+             console.log(users)
+            } catch(err){
+                console.log(err);
+            }
+            
+         }
+         description()
+     function printdata(x)
+     {
+         let container=document.querySelector("#container1");
+         let city=document.createElement("h3");
+         city.innerHTML=x.name;
+        let tempr=document.createElement("h3");
+        tempr.innerHTML=`Toaday's tempr:-${x.main.temp}`;
+        console.log(tempr);
+        let maxm_temp=document.createElement("p")
+        maxm_temp.innerHTML=`maxm temp:-${x.main.temp_max}`;
+        let min_temp=document.createElement("p");
+        min_temp.innerHTML=`minimum temp:-${x.main.temp_min}`;
+        let pressure=document.createElement("p")
+        pressure.innerText=`pressure:-${x.main.pressure}`;
+        let sun_rise=document.createElement("p");
+        sun_rise.innerText=`sun_rise:-${x.sys.sunrise}`
+        let sun_set=document.createElement("p");
+        sun_set.innerText=`sun_set:-${x.sys.sunset}`
+        let feel_like=document.createElement("p");
+        feel_like.innerText=`feel like:-${x.main.feels_like}`;
+        let humidity=document.createElement("p");
+        humidity.innerText= `humidity:-${x.main.humidity}`
+        let sea_level=document.createElement("p");
+        sea_level.innerText=`sea_levl:-${x.main.sea_level}`
+        let grnd_lvl=document.createElement("p");
+        grnd_lvl.innerText=`grndlvl:-${x.main.grnd_level}` 
+        container.append(city,tempr,maxm_temp,min_temp,sun_set,feel_like,humidity,
+        sea_level,grnd_lvl);
+        let iframe=document.getElementById("gmap_canvas")
+        iframe.src=`https://maps.google.com/maps?q=${x.name}&t=k&z=13&ie=UTF8&iwloc=&output=embed`
+        
+     }
+    
+    
+}
+
+
+function getLocationWeather() {
+    navigator.geolocation.getCurrentPosition(success);
+
+    function success(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log(latitude);
+    console.log(longitude);
+    
+    
+    getdata(latitude,longitude);
+
+
+
+  }
+
+}
+getLocationWeather()
+
+ 
+
+</script>

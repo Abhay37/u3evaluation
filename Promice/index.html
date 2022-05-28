@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img id="wait" src="https://th.bing.com/th/id/OIP.gOQv5cK1C_PBt3Hu08ZkXgHaFV?pid=ImgDet&w=800&h=576&rs=1" alt="">
+</body>
+</html>
+<script>
+   function checkcontent(){
+       if("2"==2)
+       {
+           return true;
+       }
+       else{
+           return false;
+       }
+   
+    }
+   let image=document.getElementById("wait")
+   
+
+    let mypromise = new Promise(function(resolve,reject){
+
+    let content=checkcontent()
+       setTimeout(function(){
+
+        if(content===true)
+        { 
+            //43
+            
+            resolve("promice get resolve")
+        }
+        else{
+            // promice is rejected
+            reject("promice get rejected")
+        }
+
+       },6000)
+    });
+   console.log('mypromise:',mypromise)
+   mypromise.then(function(value){
+       image.src="https://th.bing.com/th/id/R.80e42fe5c2b50bf3c1b771eed3c6645e?rik=vISvDJCc5sLA0Q&riu=http%3a%2f%2fi854.photobucket.com%2falbums%2fab109%2flacilu22%2fNATURE.gif&ehk=FvwoXEBabCNxQfddOYiV0crzGMY3Jqi5nfznRc%2bdtkM%3d&risl=&pid=ImgRaw&r=0"
+   });
+   mypromise.catch(function(value){
+       image.src="https://media0.giphy.com/media/0H9f6UfRoHHpUjgp2Q/200.webp?cid=ecf05e47y0z107fwe7dynglfb9g1tv80ozn2tdm8w3dgxi75&rid=200.webp&ct=g"
+   });
+   
+
+
+
+
+</script>

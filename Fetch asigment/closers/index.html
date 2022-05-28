@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            
+            align-content: center;
+        }
+        input{
+            width: 300px;
+        }
+        #movie{
+            width: 306px;
+            height: 200px;
+            border: .05px solid red;
+            border-top: non;
+            overflow: scroll;
+        }
+        #detail{
+           background-color: rgb(36, 80, 242);
+           width: 110%;
+           height: 80px;
+           display: flex;
+           justify-content: space-around;
+           margin-bottom: 2px;
+
+        }
+    </style>
+</head>
+<body>
+    <input oninput="main()" type="text" id="query">
+     <div id="movie"></div>
+
+</body>
+</html>
+<script>
+
+let movies_box = document.getElementById('movie');
+ async function searchmovies(query)
+  {
+      let url =`http://www.omdbapi.com/?s=${query}&apikey=99b9abf2`;
+
+      var x = await fetch(url);
+      var data= await x.json();
+      return data.Search
+
+      
+
+  }
+  function appendmovies(Y)
+  
+  { if(Y==undefined)
+    {
+        return false;
+    }
+    document.getElementById('movie').innerHTML=null;
+    
+    Y.forEach(function(ele,index) {
+        let divdetail=document.createElement('div');
+        
+        divdetail.setAttribute("id","detail")
+        let p = document.createElement('h3');
+        p.innerText=ele.Title
+        let year=document.createElement('p');
+        year.innerText=ele.Year;
+        let poster=document.createElement('img');
+        poster.style.height="80px";
+        poster.style.width="80px";
+        poster.src=ele.Poster;
+        let type=document.createElement('p');
+        type.innerText=ele.Type;
+        divdetail.append(poster,p,year,type);
+        movies_box.append(divdetail);
+      });
+
+      
+      
+     
+
+
+
+  }
+
+
+
+
+ async function main()
+  {
+
+    let query=document.getElementById('query').value;
+    console.log('query:-',query);
+    let responce = searchmovies(query);
+    let data = await responce;
+    console.log(data);
+    appendmovies(data);
+  }
+
+
+</script>
